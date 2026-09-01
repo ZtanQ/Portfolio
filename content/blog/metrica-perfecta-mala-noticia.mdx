@@ -1,0 +1,26 @@
+---
+title: "Cuando una métrica de 1.0 es una mala noticia"
+date: "2026-08-15"
+description: "Una nota sobre la fuga de datos que encontré en Smart Kitchen y por qué la métrica perfecta casi siempre es un bug."
+tags: ["metodología", "post-mortem"]
+---
+
+En el primer corrido del modelo de clasificación de desperdicio para Smart Kitchen obtuve F1 = 1.0 sobre el set de prueba. En vez de celebrar, pausé. Los clasificadores no logran métricas perfectas sobre problemas reales; cuando lo hacen, casi siempre están viendo algo que no deberían.
+
+## Lo que estaba pasando
+
+La variable objetivo era si un movimiento de inventario terminaba como desperdicio. En el pipeline, calculaba una feature derivada — "días desde la compra hasta el consumo o descarte" — usando la misma fecha de descarte que definía la etiqueta. El modelo no estaba prediciendo desperdicio; estaba leyendo la respuesta.
+
+## Cómo se detecta
+
+Tres señales prácticas:
+
+1. La métrica es demasiado buena para el problema. Para clasificación de desperdicio con clases desbalanceadas, un F1 macro por encima de 0.85 ya merece revisión.
+2. La importancia de features se concentra en una sola variable, y esa variable "casualmente" involucra la misma información que la etiqueta.
+3. El modelo colapsa cuando quitas esa feature. Es la prueba más limpia.
+
+## Qué hice
+
+Rehice el split temporal y reconstruí la feature usando solo información disponible en el momento de la compra. El F1 macro real terminó cerca de 0.72, un número mucho más creíble y defendible ante alguien que lea el reporte con atención.
+
+La lección no es "no hay que confiar en las métricas". Es que un modelo demasiado bueno se explica más veces por un pipeline con fuga que por una arquitectura brillante.

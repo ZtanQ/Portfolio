@@ -1,0 +1,26 @@
+---
+title: "When a perfect score is bad news"
+date: "2026-08-15"
+description: "A note on the data leak I found in Smart Kitchen, and why a perfect metric is almost always a bug."
+tags: ["methodology", "post-mortem"]
+---
+
+The first run of the waste classification model for Smart Kitchen returned an F1 of 1.0 on the test set. Instead of celebrating, I stopped. Classifiers do not achieve perfect scores on real problems. When they do, they are almost always seeing something they shouldn't.
+
+## What was happening
+
+The target variable was whether an inventory movement ended as waste. Somewhere in the pipeline I was computing a derived feature — days from purchase to consumption or disposal — using the same disposal date that defined the label. The model wasn't predicting waste. It was reading the answer.
+
+## How to catch it
+
+Three practical signals:
+
+1. The metric is too good for the problem. For waste classification with imbalanced classes, a macro F1 above 0.85 already deserves a second look.
+2. Feature importance concentrates on a single variable, and that variable happens to involve the same information as the label.
+3. The model collapses when you remove that feature. This is the cleanest test.
+
+## What I did
+
+I rebuilt the temporal split and reconstructed the feature using only information available at purchase time. The real macro F1 landed near 0.72 — a far more believable number, and one I can defend to anyone reading the report carefully.
+
+The lesson isn't "don't trust metrics." It's that a model that looks too good is explained more often by a leaking pipeline than by a brilliant architecture.

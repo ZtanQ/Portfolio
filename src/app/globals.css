@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Design system — see instrucciones.md.
+ * Every value here has a reason. Don't add tokens without one. */
+@theme {
+  /* Color — light mode. Contrast ratios verified against --color-paper. */
+  --color-paper: #f8f6f0;
+  --color-ink: #1a1a1a;        /* 16.10:1  AAA */
+  --color-ink-muted: #6b6b6b;  /*  4.93:1  AA  */
+  --color-rule: #d6d0c0;       /* hairline, not text */
+  --color-accent: #14304a;     /* 12.53:1  AAA — navigation only */
+  --color-signal: #8a6410;     /*  4.97:1  AA  — data only */
+  --color-signal-lg: #b4841e;  /*  3.10:1  large numerals only (24px+) */
+
+  /* Type families. next/font defines the --font-* vars in layout.tsx. */
+  --font-display: var(--font-fraunces), ui-serif, serif;
+  --font-body: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Type scale. Calibrated for English, which runs shorter than Spanish.
+   * Newsreader renders small for its nominal size, hence 18px body. */
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-section: 1.75rem;
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.01em;
+
+  --text-card: 1.25rem;
+  --text-card--line-height: 1.25;
+
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.55;
+
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.4;
+
+  --text-figure: 2rem;
+  --text-figure--line-height: 1;
+  --text-figure--letter-spacing: -0.01em;
+
+  /* Radii — near-square. Notebook, not SaaS. */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+
+  /* Measure for prose. ~68 characters at 18px Newsreader. */
+  --measure: 40rem;
+}
+
+/* Dark mode. All ratios verified AAA against dark --color-paper. */
+.dark {
+  --color-paper: #10171f;
+  --color-ink: #e8e4da;        /* 14.21:1 */
+  --color-ink-muted: #9aa4b0;  /*  7.14:1 */
+  --color-rule: #253242;
+  --color-accent: #7db4e1;     /*  8.15:1 */
+  --color-signal: #e6b563;     /*  9.58:1 */
+  --color-signal-lg: #e6b563;
+}
+
+html {
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  font-feature-settings: "kern", "liga";
+}
+
+/* Tabular figures for numerals that sit in a column. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Old-style figures read better inside running serif prose. */
+.oldstyle {
+  font-variant-numeric: oldstyle-nums;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+/* Never removed. 3px offset keeps the ring clear of the glyphs. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
