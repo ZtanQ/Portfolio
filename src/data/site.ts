@@ -7,8 +7,8 @@ export const site = {
   role: "Data & Machine Learning",
   location: "Lima, Peru",
 
-  // Replace with the real domain once the deploy is set up.
-  url: "https://gabrielreyna.dev",
+  // Vercel default domain. Swap here if a custom domain is set up later.
+  url: "https://portfolio-ztanq.vercel.app",
 
   description:
     "Portfolio of applied machine learning and data analysis projects, focused on methodological decisions, results with numbers, and stated limitations.",
