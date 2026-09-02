@@ -29,7 +29,8 @@ export default async function ProjectPage({ params }: Props) {
 
   const metrics = project.metrics ?? [];
   const links = project.links ?? {};
-  const hasLinks = Boolean(links.repo || links.demo || links.report);
+  const repos = links.repos ?? [];
+  const hasLinks = Boolean(repos.length || links.demo || links.report);
 
   return (
     <article className="mx-auto max-w-[52rem] px-6 md:px-12 py-16 md:py-24">
@@ -146,18 +147,18 @@ export default async function ProjectPage({ params }: Props) {
         <section className="mt-14 pt-8 border-t border-rule">
           <h2 className="sr-only">Links</h2>
           <ul className="flex flex-wrap gap-x-8 gap-y-2">
-            {links.repo && (
-              <li>
+            {repos.map((repo) => (
+              <li key={repo.url}>
                 <a
-                  href={links.repo}
+                  href={repo.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono text-small text-accent border-b border-accent/40 hover:border-accent transition-colors duration-150"
                 >
-                  Source on GitHub
+                  {repo.label}
                 </a>
               </li>
-            )}
+            ))}
             {links.demo && (
               <li>
                 <a

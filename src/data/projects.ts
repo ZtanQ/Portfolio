@@ -28,7 +28,13 @@ export type Project = {
     alt: string;
   };
   links?: {
-    repo?: string;
+    /**
+     * One entry per repository. Some projects live in more than one: a team
+     * repo alongside a personal one, or a frontend/backend split. The label
+     * says what each holds, so the reader knows which one answers their
+     * question instead of guessing between two identical links.
+     */
+    repos?: readonly { label: string; url: string }[];
     demo?: string;
     report?: string;
   };
@@ -54,7 +60,11 @@ export const projects: readonly Project[] = [
       { label: "Forecast window", value: "7 and 14 days" },
     ],
     featured: true,
-    links: {},
+    links: {
+      repos: [
+        { label: "Source on GitHub", url: "https://github.com/itosh10110/ALDIMI" },
+      ],
+    },
     context:
       "The shelter houses pediatric oncology patients and their families, and runs on limited resources. They needed two things: advance warning of inventory shortages, and a way to prioritize care based on each patient's clinical risk across nutritional, socioeconomic, and treatment-adherence variables.",
     decisions: [
@@ -88,7 +98,16 @@ export const projects: readonly Project[] = [
     ],
     featured: true,
     links: {
-      repo: "https://github.com/ZtanQ/Smart_Kitchen",
+      repos: [
+        {
+          label: "Training and deployment",
+          url: "https://github.com/jose-melgar/Smart-Kitchen-Intelligence",
+        },
+        {
+          label: "Analysis and dashboard",
+          url: "https://github.com/ZtanQ/Smart_Kitchen",
+        },
+      ],
     },
     context:
       "Data Visualization course, UPC (2026-I). The dataset simulated household operations with kitchen inventories and consumption patterns. The goal was to find where economic loss concentrated and which levers actually moved the waste rate.",
@@ -158,7 +177,9 @@ export const projects: readonly Project[] = [
     ],
     featured: false,
     links: {
-      repo: "https://github.com/Dreelliot/FruitGuard",
+      repos: [
+        { label: "Source on GitHub", url: "https://github.com/Dreelliot/FruitGuard" },
+      ],
     },
     context:
       "Computer Vision course project. Agrifood supply chains lose value to manual inspection that is slow and subjective. FruitGuard automates the fresh-versus-rotten judgment using classical computer vision, evaluated over 30,357 images across nine produce categories. Methodological reference: Montoya Holguín, Cortés Osorio & Chaves Osorio (2014).",
@@ -190,7 +211,18 @@ export const projects: readonly Project[] = [
       "Career guidance platform with a REST API and a normalized relational schema.",
     metrics: [],
     featured: false,
-    links: {},
+    links: {
+      repos: [
+        {
+          label: "Backend API",
+          url: "https://github.com/DecideClaro/Vocatio-backend",
+        },
+        {
+          label: "Frontend",
+          url: "https://github.com/DecideClaro/frontend-Vocation",
+        },
+      ],
+    },
     context:
       "Course project. The goal was a structured self-assessment tool with queryable profiles and recommendations.",
     decisions: [

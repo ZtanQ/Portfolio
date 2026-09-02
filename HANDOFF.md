@@ -47,21 +47,21 @@ Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/co
 
 **Los dos bloqueantes de deploy están resueltos.** El dominio está configurado y el CV está en su sitio; lo que sigue son mejoras de contenido, no obstáculos.
 
-### Alta prioridad — Repos faltantes
+### Alta prioridad — Repo faltante: SKI
 
-Solo dos de cinco proyectos tienen código enlazado:
+Cuatro de cinco proyectos ya tienen código enlazado:
 
-| Proyecto | Repo |
+| Proyecto | Repos |
 |---|---|
-| Smart Kitchen Intelligence | `github.com/ZtanQ/Smart_Kitchen` |
-| FruitGuard | `github.com/Dreelliot/FruitGuard` |
-| ALDIMI Predict | **falta** |
+| ALDIMI Predict | `itosh10110/ALDIMI` |
+| Smart Kitchen Intelligence | `jose-melgar/Smart-Kitchen-Intelligence` (entrenamiento y despliegue) + `ZtanQ/Smart_Kitchen` (análisis y dashboard) |
+| FruitGuard | `Dreelliot/FruitGuard` |
+| Career Assessment Platform | `DecideClaro/Vocatio-backend` + `DecideClaro/frontend-Vocation` |
 | Motor de recomendación SKI | **falta** |
-| Career Assessment Platform | **falta** |
 
-Los tres que faltan son justamente donde el sitio afirma más rigor metodológico: SHAP, detección de fuga de datos, ablación de PageRank. Alguien que lea eso y quiera verificarlo no tiene dónde ir.
+Falta solo el recomendador SKI, y es el que más duele: es donde el sitio afirma la ablación de PageRank con peso óptimo cero y el protocolo de canasta enmascarada. Quien quiera verificar ese resultado negativo —que es el argumento más fuerte de la ficha— no tiene dónde ir.
 
-Si están en repos privados o bajo la cuenta de un compañero, decidir qué hacer. El campo es `links.repo` en `src/data/projects.ts`.
+El campo es `links.repos` en `src/data/projects.ts`: una lista de `{ label, url }`, no una cadena. Cuando un proyecto vive en más de un repositorio, la etiqueta dice qué contiene cada uno, para que el lector sepa cuál abrir en vez de adivinar entre dos enlaces idénticos. Con un solo repo la etiqueta es `"Source on GitHub"`.
 
 ### Alta prioridad — Certificados
 
