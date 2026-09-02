@@ -75,6 +75,10 @@ existan, sin superlativos vacíos, limitaciones declaradas sin excusarse.
 - **Power BI** aparece en el stack del hero (`stack.ts`) y en el de Cirion
   (`experience.ts`), pero no en este CV, cuya descripción de Cirion menciona
   Matplotlib y Seaborn. Hay que corregir uno de los dos lados.
-- **`education.ts`** sigue diciendo "Platzi · Coursera — Course names pending",
-  mientras el CV declara Scrum Fundamentals Certified y las certificaciones de
-  LinkedIn. Reconciliar.
+- **El PDF de `public/cv/` está desactualizado** respecto a esta fuente: falta
+  recompilar con la corrección del curso de Computer Vision y los certificados
+  con nombre.
+
+Los certificados originales están en `certificados/`, en la raíz del proyecto.
+Esa carpeta está en `.gitignore` a propósito: es material de consulta, no se
+publica.

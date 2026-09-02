@@ -47,14 +47,6 @@ Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/co
 
 **Los dos bloqueantes de deploy están resueltos.** El dominio está configurado y el CV está en su sitio; lo que sigue son mejoras de contenido, no obstáculos.
 
-### Alta prioridad — Certificados
-
-`src/data/education.ts` tiene una entrada "Platzi · Coursera" con nota "Course names pending". Sin nombres concretos se lee como relleno.
-
-Están en `linkedin.com/in/gabriel-reyna-alvarado/details/certifications/`. Nombrar dos o tres reconocibles vale más que listar diez.
-
-El CV ya declara Scrum Fundamentals Certified (SFC) y las certificaciones de LinkedIn, así que los dos documentos hoy no dicen lo mismo. Reconciliar.
-
 ### Baja — Certificados de francés
 
 Los exámenes CAF y DELF están rendidos, pero los certificados todavía no llegan. Hasta entonces `about.ts` declara solo "Intermediate", sin nombrar examen: afirmar una credencial que no se puede mostrar rompe la regla de evidencia.
@@ -162,3 +154,7 @@ Por orden de cierre, para no volver a abrirlo sin motivo:
   Los seis repositorios se comprobaron públicos y alcanzables con `git ls-remote` antes de enlazarlos.
 - **README puesto al día** — describía `proyectos/`, `blog/` y `contacto/`, eliminadas en la migración, y pedía resolver placeholders ya resueltos. Ahora documenta la estructura real, incluida `cv/`, y enlaza producción.
 - **Nivel de francés** — `about.ts` lo tenía vacío y renderizaba el idioma sin nivel. Ahora dice "Intermediate", igual que el CV.
+- **Certificados nombrados** — `education.ts` ya no dice "Course names pending". Declara tres con nombre, emisor y año: Scrum Fundamentals Certified (SCRUMstudy, 2023), Introduction to MongoDB (2023) y Pixel Art for Video Games (Michigan State via Coursera, 2024). Los originales están en `certificados/`, en la raíz y fuera de git a propósito: son documentos personales y el Statement of Results de Cambridge incluye número de verificación.
+
+  La ruta de MongoDB emitió además un certificado por módulo. Se nombra solo "Introduction to MongoDB": listar los doce alargaría la sección sin aportar evidencia.
+- **Corrección: el curso de Computer Vision no era un programa de Pittsburgh** — el sitio decía "University of Pittsburgh, 2025" y el CV "Remote, 2022 – 2025". El certificado dice otra cosa: curso *Computer Vision — Artificial Intelligence* del **Winter School 2025 de la UPC**, dictado por Nils Murrugarra-Llerena, profesor asociado de Pittsburgh, **del 21 al 25 de julio de 2025**. Cinco días, no tres años, y organizado por la UPC. Corregido en `education.ts`, en la ficha de FruitGuard del CV y en la entrada de Educación del CV.
