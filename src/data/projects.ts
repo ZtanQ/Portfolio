@@ -99,14 +99,7 @@ export const projects: readonly Project[] = [
     featured: true,
     links: {
       repos: [
-        {
-          label: "Training and deployment",
-          url: "https://github.com/jose-melgar/Smart-Kitchen-Intelligence",
-        },
-        {
-          label: "Analysis and dashboard",
-          url: "https://github.com/ZtanQ/Smart_Kitchen",
-        },
+        { label: "Source on GitHub", url: "https://github.com/ZtanQ/Smart_Kitchen" },
       ],
     },
     context:
@@ -142,7 +135,14 @@ export const projects: readonly Project[] = [
       { label: "DBSCAN noise", value: "< 0.3%" },
     ],
     featured: true,
-    links: {},
+    links: {
+      repos: [
+        {
+          label: "Source on GitHub",
+          url: "https://github.com/jose-melgar/Smart-Kitchen-Intelligence",
+        },
+      ],
+    },
     context:
       "An extension of Smart Kitchen Intelligence. If the analysis shows where food is lost, the next step is recommending recipes and purchases that prevent the loss before it happens.",
     decisions: [

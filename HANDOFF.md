@@ -47,22 +47,6 @@ Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/co
 
 **Los dos bloqueantes de deploy están resueltos.** El dominio está configurado y el CV está en su sitio; lo que sigue son mejoras de contenido, no obstáculos.
 
-### Alta prioridad — Repo faltante: SKI
-
-Cuatro de cinco proyectos ya tienen código enlazado:
-
-| Proyecto | Repos |
-|---|---|
-| ALDIMI Predict | `itosh10110/ALDIMI` |
-| Smart Kitchen Intelligence | `jose-melgar/Smart-Kitchen-Intelligence` (entrenamiento y despliegue) + `ZtanQ/Smart_Kitchen` (análisis y dashboard) |
-| FruitGuard | `Dreelliot/FruitGuard` |
-| Career Assessment Platform | `DecideClaro/Vocatio-backend` + `DecideClaro/frontend-Vocation` |
-| Motor de recomendación SKI | **falta** |
-
-Falta solo el recomendador SKI, y es el que más duele: es donde el sitio afirma la ablación de PageRank con peso óptimo cero y el protocolo de canasta enmascarada. Quien quiera verificar ese resultado negativo —que es el argumento más fuerte de la ficha— no tiene dónde ir.
-
-El campo es `links.repos` en `src/data/projects.ts`: una lista de `{ label, url }`, no una cadena. Cuando un proyecto vive en más de un repositorio, la etiqueta dice qué contiene cada uno, para que el lector sepa cuál abrir en vez de adivinar entre dos enlaces idénticos. Con un solo repo la etiqueta es `"Source on GitHub"`.
-
 ### Alta prioridad — Certificados
 
 `src/data/education.ts` tiene una entrada "Platzi · Coursera" con nota "Course names pending". Sin nombres concretos se lee como relleno.
@@ -153,3 +137,18 @@ Por orden de cierre, para no volver a abrirlo sin motivo:
 - **`next-mdx-remote` 5.0.0 → 6.0.0** — cierra GHSA-g4xw-jxrg-5f6m (alta). La exposición real era nula porque el MDX sale del propio repo, pero Vercel lo marcaba en cada deploy. La v6 conserva el export `/rsc` y la firma de `MDXRemote`; no hubo cambios de código.
 - **Bloqueante 1, dominio** — `site.url` apunta a `https://portfolio-ztanq.vercel.app`, sin barra final. Verificado en el build: sitemap, robots, `og:image` y JSON-LD salen con el host correcto.
 - **Bloqueante 2, CV** — `public/cv/gabriel-reyna-cv.pdf` colocado y `cvAvailable` en `true`. Verificado que renderizan los dos enlaces: "Download CV" en el hero y "Download CV (PDF)" en Contact.
+- **Repos enlazados, los cinco proyectos** — ya no hay fichas sin código verificable:
+
+  | Proyecto | Repo |
+  |---|---|
+  | ALDIMI Predict | `itosh10110/ALDIMI` |
+  | Smart Kitchen Intelligence | `ZtanQ/Smart_Kitchen` — análisis y dashboard |
+  | Motor de recomendación SKI | `jose-melgar/Smart-Kitchen-Intelligence` — entrenamiento y despliegue |
+  | FruitGuard | `Dreelliot/FruitGuard` |
+  | Career Assessment Platform | `DecideClaro/Vocatio-backend` + `DecideClaro/frontend-Vocation` |
+
+  Smart Kitchen y SKI son el mismo cuerpo de trabajo repartido en dos repositorios: el análisis con el dashboard por un lado, el entrenamiento con el despliegue por el otro. Cada ficha enlaza el suyo, no los dos.
+
+  El campo dejó de ser `links.repo` (cadena) y pasó a ser `links.repos`, una lista de `{ label, url }`, porque Career Assessment vive en dos repositorios y un solo campo obligaba a esconder uno. Con un repo la etiqueta es `"Source on GitHub"`; con varios, la etiqueta dice qué contiene cada uno.
+
+  Los seis repositorios se comprobaron públicos y alcanzables con `git ls-remote` antes de enlazarlos.
