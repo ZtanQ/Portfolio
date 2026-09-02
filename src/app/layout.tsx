@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Newsreader, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -84,6 +85,10 @@ export default function RootLayout({
           </main>
           <SiteFooter />
         </ThemeProvider>
+        {/* Vercel Analytics: sin cookies de terceros, contemplado en
+            instrucciones.md §4. Mide a dónde llega la gente antes de que
+            rediseñemos a ciegas. */}
+        <Analytics />
       </body>
     </html>
   );
