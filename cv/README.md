@@ -70,14 +70,20 @@ tener los dos abiertos. Cuando cambie un dato aquí, revisar su equivalente en
 Las reglas de tono están en `instrucciones.md` §6: números concretos siempre que
 existan, sin superlativos vacíos, limitaciones declaradas sin excusarse.
 
+## Compilar desde este archivo, no desde otra copia
+
+Si editas en Overleaf, **reemplaza el contenido del proyecto por este archivo**
+antes de compilar. Un proyecto de Overleaf con su propia copia deriva: ya pasó
+dos veces, y la segunda dejó en el PDF una línea suelta —`| LinkedIn
+Certifications`— que esta fuente no tiene.
+
+Regla simple: este `.tex` manda. Si el PDF y este archivo discrepan, el PDF
+está mal.
+
 ## Pendientes
 
-- **Power BI** aparece en el stack del hero (`stack.ts`) y en el de Cirion
-  (`experience.ts`), pero no en este CV, cuya descripción de Cirion menciona
-  Matplotlib y Seaborn. Hay que corregir uno de los dos lados.
-- **El PDF de `public/cv/` está desactualizado** respecto a esta fuente: falta
-  recompilar con la corrección del curso de Computer Vision y los certificados
-  con nombre.
+Ninguno abierto en el CV. Power BI queda como está por decisión tomada: ver
+`HANDOFF.md` §5.
 
 Los certificados originales están en `certificados/`, en la raíz del proyecto.
 Esa carpeta está en `.gitignore` a propósito: es material de consulta, no se
