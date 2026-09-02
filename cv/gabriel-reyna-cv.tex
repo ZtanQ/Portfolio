@@ -116,6 +116,15 @@
 % \urlref{https://ejemplo.com}{ejemplo.com}
 \newcommand{\urlref}[2]{\href{#1}{#2}}
 
+%------------------------------------------------------------------------------
+% SEPARADOR DE LISTA
+%------------------------------------------------------------------------------
+% Una barra suelta al inicio de una linea se lee como un error de copiado. El
+% ~ ata la barra a la palabra anterior, asi que el salto nunca cae antes de
+% ella; el espacio posterior si permite cortar. Usar en listas separadas por
+% barras que puedan ocupar mas de un renglon.
+\newcommand{\sep}{~\textbar\ }
+
 %==============================================================================
 % DOCUMENT
 %==============================================================================
@@ -387,14 +396,15 @@ overhead by 15\% against the baseline implementation.
 \skillrow{Languages}
 {Spanish (native), English (B2 --- Cambridge First, 2025), French (intermediate)}
 
-% Certificados con nombre, los mismos que src/data/education.ts. "LinkedIn
-% Certifications" no nombraba ninguno; estos tres si, y los tres estan en mano.
+% Tres certificados con nombre, los mismos que src/data/education.ts, mas el
+% enlace a la lista completa en LinkedIn. Se usa \sep y no \textbar{}: con
+% cuatro items la linea ocupa mas de un renglon, y sin el ~ la barra quedaba
+% huerfana al inicio de la ultima linea.
 \skillrow{Certifications}
-{Scrum Fundamentals Certified (SFC), SCRUMstudy, 2023
-\textbar{}
-Introduction to MongoDB, 2023
-\textbar{}
-Pixel Art for Video Games, Michigan State University via Coursera, 2024}
+{Scrum Fundamentals Certified (SFC), SCRUMstudy, 2023%
+\sep Introduction to MongoDB, 2023%
+\sep Pixel Art for Video Games, Michigan State University via Coursera, 2024%
+\sep \urlref{https://www.linkedin.com/in/gabriel-reyna-alvarado/details/certifications/}{LinkedIn Certifications}}
 
 \skillrow{Activities}
 {PMI Lima Peru Chapter; PMI LATAM Conference 2026.

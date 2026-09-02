@@ -110,6 +110,7 @@ Vienen de `instrucciones.md` y aplican a cualquier cambio:
 - **Contacto no tiene página propia**: es sección del home más enlace en el footer.
 - **No hay sección de Skills**: el stack del hero cumple esa función con evidencia enlazada, que es mejor que una grilla de logos.
 - **Space Drunks** se atribuye a Camote Studio; en itch está bajo la cuenta `Unlucky-Alpaca`.
+- **"LinkedIn Certifications" se queda en el CV.** Se señaló dos veces como línea que no nombra ninguna certificación concreta, y la decisión fue mantenerla: funciona como enlace a la lista completa, junto a los tres certificados con nombre. No volver a quitarla.
 - **Power BI se queda como está.** Aparece en el stack del hero (`stack.ts`) y en el de Cirion (`experience.ts`), pero no en el CV, cuya descripción de Cirion menciona Matplotlib y Seaborn. La discrepancia es conocida y se decidió no tocarla. No reabrir sin motivo nuevo.
 - **La fuente del CV es `cv/gabriel-reyna-cv.tex`.** Si se compila en Overleaf, hay que reemplazar el contenido del proyecto por ese archivo antes de compilar: una copia paralela en Overleaf ya derivó dos veces. Si el PDF y el `.tex` discrepan, el PDF está mal.
 
