@@ -47,9 +47,15 @@ export const about = {
     },
   ],
 
+  /**
+   * The level goes next to the name, with the certification when there is one
+   * to show. French has none yet: the CAF and DELF exams are sat but the
+   * certificates haven't come through, so the entry stays at the plain level.
+   * Name the exam and its result here once the paperwork is in hand.
+   */
   languages: [
     { name: "Spanish", level: "Native" },
     { name: "English", level: "B2 — Cambridge First, 2025" },
-    { name: "French", level: "" },
+    { name: "French", level: "Intermediate" },
   ],
 } as const;

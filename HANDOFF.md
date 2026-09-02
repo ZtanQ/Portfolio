@@ -53,6 +53,14 @@ Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/co
 
 Están en `linkedin.com/in/gabriel-reyna-alvarado/details/certifications/`. Nombrar dos o tres reconocibles vale más que listar diez.
 
+El CV ya declara Scrum Fundamentals Certified (SFC) y las certificaciones de LinkedIn, así que los dos documentos hoy no dicen lo mismo. Reconciliar.
+
+### Baja — Certificados de francés
+
+Los exámenes CAF y DELF están rendidos, pero los certificados todavía no llegan. Hasta entonces `about.ts` declara solo "Intermediate", sin nombrar examen: afirmar una credencial que no se puede mostrar rompe la regla de evidencia.
+
+Cuando lleguen, nombrar examen y resultado en `about.ts` junto al nivel, con el mismo formato que el inglés (`B2 — Cambridge First, 2025`), y reflejarlo en el CV.
+
 ### Media — Imágenes de proyecto
 
 Ninguna todavía. Todas las tarjetas renderizan en modo tipográfico, con las métricas grandes en mono, que es un estado válido y deliberado.
@@ -152,3 +160,5 @@ Por orden de cierre, para no volver a abrirlo sin motivo:
   El campo dejó de ser `links.repo` (cadena) y pasó a ser `links.repos`, una lista de `{ label, url }`, porque Career Assessment vive en dos repositorios y un solo campo obligaba a esconder uno. Con un repo la etiqueta es `"Source on GitHub"`; con varios, la etiqueta dice qué contiene cada uno.
 
   Los seis repositorios se comprobaron públicos y alcanzables con `git ls-remote` antes de enlazarlos.
+- **README puesto al día** — describía `proyectos/`, `blog/` y `contacto/`, eliminadas en la migración, y pedía resolver placeholders ya resueltos. Ahora documenta la estructura real, incluida `cv/`, y enlaza producción.
+- **Nivel de francés** — `about.ts` lo tenía vacío y renderizaba el idioma sin nivel. Ahora dice "Intermediate", igual que el CV.
