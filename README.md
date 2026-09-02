@@ -1,5 +1,7 @@
 # Portafolio — Gabriel Reyna
 
+[![CI](https://github.com/ZtanQ/Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/ZtanQ/Portfolio/actions/workflows/ci.yml)
+
 Sitio personal con foco en proyectos de Data y Machine Learning. Next.js 16 +
 Tailwind v4, sin backend ni base de datos. El contenido del sitio está en
 inglés; la documentación y los commits, en español.

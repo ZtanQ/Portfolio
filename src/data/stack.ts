@@ -10,6 +10,12 @@ export type StackItem = {
   href: string;
   /** Short phrase naming the evidence, used as the link's accessible name. */
   evidence: string;
+  /**
+   * Shown in the hero, above the fold. Four at most: the ones a recruiter
+   * filters on. The full list still lives further down the page — this is a
+   * shortcut to it, not a second, competing list.
+   */
+  core?: true;
 };
 
 export type StackGroup = {
@@ -25,11 +31,13 @@ export const stack: readonly StackGroup[] = [
         name: "Python",
         href: "/projects/aldimi-predict",
         evidence: "used across every modeling project",
+        core: true,
       },
       {
         name: "scikit-learn",
         href: "/projects/ski-recommender",
         evidence: "clustering and model selection in the recommender",
+        core: true,
       },
       {
         name: "XGBoost",
@@ -65,11 +73,13 @@ export const stack: readonly StackGroup[] = [
         name: "SQL",
         href: "/projects/career-assessment-platform",
         evidence: "relational schema in the assessment platform",
+        core: true,
       },
       {
         name: "Tableau",
         href: "/projects/smart-kitchen-intelligence",
         evidence: "ten-sheet dashboard in Smart Kitchen",
+        core: true,
       },
       {
         name: "Power BI",
@@ -104,3 +114,11 @@ export const stack: readonly StackGroup[] = [
     ],
   },
 ] as const;
+
+/**
+ * The four that go above the fold. Derived from the same list, so a
+ * technology can never appear in the hero without its piece of evidence.
+ */
+export const coreStack: readonly StackItem[] = stack
+  .flatMap((group) => group.items)
+  .filter((item) => item.core);

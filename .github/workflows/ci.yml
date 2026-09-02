@@ -1,0 +1,31 @@
+# Lint, types and build on every push and pull request.
+#
+# The site deploys from Vercel, which runs its own build; this workflow exists
+# so a broken commit is visible in the repository itself, where anyone reading
+# the code can see it. Same three commands as the local checklist.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run type-check
+
+      - run: npm run build

@@ -11,6 +11,14 @@ import type { Project } from "@/data/projects";
  * A project without a screenshot should read as a deliberate choice, not
  * as a card with a hole in it.
  *
+ * Order: the title leads in the DOM, always. The left-hand column used to
+ * come first, which is what the desktop grid wants, but on mobile the grid
+ * collapses to one column and three large numerals landed above the title —
+ * the reader met 0.75 and 0.87 without knowing whose they were. Putting the
+ * title first and restoring the columns with `md:order-*` fixes the phone
+ * without introducing a gap between what the eye sees and what a screen
+ * reader announces, which swapping the visual order alone would have done.
+ *
  * Accessibility: only the title is a link. The pseudo-element after the
  * anchor covers the card so the whole surface stays clickable, while the
  * link's accessible name is just the project title and body text stays
@@ -22,34 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article className="group relative grid grid-cols-1 md:grid-cols-[16rem_1fr] gap-x-8 gap-y-4 py-8 border-b border-rule first:border-t first:border-rule [&>*]:min-w-0">
-      {hasImage ? (
-        <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-rule bg-rule/20">
-          <Image
-            src={project.image!.src}
-            alt={project.image!.alt}
-            fill
-            sizes="(min-width: 768px) 16rem, 100vw"
-            className="object-cover"
-          />
-        </div>
-      ) : (
-        metrics.length > 0 && (
-          <dl className="flex md:flex-col gap-x-8 gap-y-4 flex-wrap md:justify-center">
-            {metrics.slice(0, 3).map((m) => (
-              <div key={m.label}>
-                <dd className="font-mono tabular text-figure text-signal-lg leading-none">
-                  {m.value}
-                </dd>
-                <dt className="mt-1 font-mono text-meta text-ink-muted">
-                  {m.label}
-                </dt>
-              </div>
-            ))}
-          </dl>
-        )
-      )}
-
-      <div>
+      <div className="md:order-2">
         <div className="flex items-baseline justify-between gap-4">
           <h3 className="font-display text-card leading-tight">
             <Link
@@ -89,6 +70,33 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </ul>
       </div>
+
+      {hasImage ? (
+        <div className="md:order-1 relative aspect-[4/3] overflow-hidden rounded-md border border-rule bg-rule/20">
+          <Image
+            src={project.image!.src}
+            alt={project.image!.alt}
+            fill
+            sizes="(min-width: 768px) 16rem, 100vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        metrics.length > 0 && (
+          <dl className="md:order-1 flex md:flex-col gap-x-8 gap-y-4 flex-wrap md:justify-center">
+            {metrics.slice(0, 3).map((m) => (
+              <div key={m.label}>
+                <dd className="font-mono tabular text-figure text-signal-lg leading-none">
+                  {m.value}
+                </dd>
+                <dt className="mt-1 font-mono text-meta text-ink-muted">
+                  {m.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        )
+      )}
     </article>
   );
 }

@@ -25,7 +25,7 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Main">
-          <ul className="flex items-baseline gap-4 sm:gap-7">
+          <ul className="flex flex-wrap justify-end items-baseline gap-x-4 gap-y-2 sm:gap-x-7">
             {nav.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -45,6 +45,18 @@ export function SiteHeader() {
                 </li>
               );
             })}
+            {/* The CV is what a recruiter came for. It stays one click away
+                from every page, not only from the hero. */}
+            {site.cvAvailable && (
+              <li>
+                <a
+                  href={site.cvPath}
+                  className="font-body text-small text-accent border-b border-accent pb-[3px] hover:opacity-75 transition-opacity duration-150"
+                >
+                  CV
+                </a>
+              </li>
+            )}
             <li className="flex items-baseline">
               <ThemeToggle />
             </li>

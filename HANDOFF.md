@@ -26,7 +26,7 @@ Stack: Next.js 16 (App Router), React 19, TypeScript strict, Tailwind v4. Sin ba
 
 Completo y funcionando:
 
-- **Home**: Hero (con stack agrupado y enlazado a evidencia) → Experience → Selected projects → Writing → Contact
+- **Home**: Hero comprimido (nombre, rol, cuatro tecnologías núcleo, CTA) → índice de secciones → Selected projects → Experience → Stack con evidencia → Writing → Contact
 - **`/projects`** con filtro por tag y estado en URL, y **`/projects/[slug]`** para cada uno
 - **`/writing`** y **`/writing/[slug]`** renderizando MDX
 - **`/about`** con foto, bio, áreas de trabajo, educación, idiomas y juegos publicados
@@ -46,6 +46,17 @@ Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/co
 ## 3. Cola de trabajo, en orden
 
 **Los dos bloqueantes de deploy están resueltos.** El dominio está configurado y el CV está en su sitio; lo que sigue son mejoras de contenido, no obstáculos.
+
+La cola se reordenó tras cruzar la auditoría de escaneo con el informe de mercado 2026 (`documentos/Diseño Portafolio Computer Science.md`, filtrado en `instrucciones.md` §15).
+
+### Alta — Demos en vivo
+
+Es el hueco más grande que queda, y el único que no puedo cerrar yo. Para un perfil de Data/ML, que el evaluador toque el modelo vale más que cualquier captura.
+
+- ALDIMI Predict y el recomendador SKI → Streamlit Community Cloud
+- FruitGuard → Hugging Face Spaces
+
+El campo `links.demo` ya existe en `projects.ts` y no lo usa ningún proyecto: una vez desplegado, es rellenar el campo. **Condición**: si la app duerme, el enlace lo advierte ("cold start, ~30 s"); si no se puede garantizar que levante, no se enlaza. Un enlace que tarda un minuto en responder juega en contra.
 
 ### Baja — Certificados de francés
 
@@ -74,15 +85,6 @@ El perfil `ZtanQ` tiene 11 repos públicos, varios de curso sin descripción (`e
 
 Fijar los buenos con *pinned repositories*: `Smart_Kitchen`, `Steam_recommendations-`, `PicaTeclas`.
 
-### Baja — Trabajo no representado
-
-Hay dos repos que conectan temáticamente con el recomendador SKI y no están en el sitio:
-
-- `Steam_recommendations-` — recomendador de videojuegos en Go
-- `PicaTeclas` — recomendador web en Jupyter
-
-Decidir si merecen entrar como proyectos. Nota: **Go no aparece en ninguna parte del sitio** pese a existir código en ese lenguaje.
-
 ### Baja — Imagen OG
 
 `public/og.png` se generó con Lora sustituyendo a Fraunces, porque el entorno no tenía la fuente real. Es regenerable localmente con las fuentes correctas si se quiere fidelidad total. Funciona como está.
@@ -93,10 +95,10 @@ Decidir si merecen entrar como proyectos. Nota: **Go no aparece en ninguna parte
 
 Vienen de `instrucciones.md` y aplican a cualquier cambio:
 
-- **Regla de evidencia**: una tecnología solo entra en el stack del hero si enlaza a algo que la prueba. `src/data/stack.ts`.
+- **Regla de evidencia**: una tecnología solo entra en la lista de stack si enlaza a algo que la prueba. `src/data/stack.ts`. Las cuatro del hero salen del mismo archivo, marcadas con `core`: no hay forma de poner una arriba sin su evidencia.
 - **Dos colores, dos trabajos**: `--color-accent` (azul) solo para navegación y enlaces; `--color-signal` (ámbar) solo para dato. Nunca se cruzan.
 - **Contraste verificado**: el ámbar claro `#8A6410` da 4.97:1. El ámbar más claro `#B4841E` da 3.10:1 y **solo puede usarse en numerales de 24px o más** (`--color-signal-lg`). No usarlo para texto pequeño.
-- **Alternancia de densidad**: números y gráficos solo en el hero y en las páginas de proyecto. About, educación, experiencia y writing se quedan en registro editorial sin métricas.
+- **Alternancia de densidad**: números y gráficos solo en las tarjetas de proyecto y en las páginas de proyecto. About, educación, experiencia y writing se quedan en registro editorial sin métricas.
 - **Tono**: sin emojis en secciones formales, sin "passionate about", sin superlativos vacíos, sin cierres tipo "Let's connect". Números concretos siempre que existan. Limitaciones declaradas sin excusarse.
 - **Accesibilidad**: en las tarjetas solo el título es enlace, y el área clickeable se extiende con `after:absolute after:inset-0`. No volver a envolver la tarjeta entera en un `<Link>`.
 - **Sin dependencias nuevas** sin justificarlas antes.
@@ -106,9 +108,11 @@ Vienen de `instrucciones.md` y aplican a cualquier cambio:
 ## 5. Decisiones ya tomadas, no revisar sin motivo
 
 - **UPC GameLab** es un taller, no un proyecto. Vive en Educación y se cuenta como el origen del equipo de Camote Studio.
-- **Experience va antes que Projects** en el home, y **Cirion antes que Camote** por relevancia, no por fecha. Está documentado en `src/data/experience.ts`.
+- **Projects va antes que Experience** en el home. Esta decisión reemplaza a la anterior, que ponía Experience primero porque un reclutador valida experiencia. Sigue siendo cierto frente a Writing, pero no frente a los proyectos: la práctica en Cirion duró tres meses y los proyectos son el cuerpo de trabajo. El criterio que manda es el de `instrucciones.md` §1, interés antes que verificación. **Cirion antes que Camote** dentro de Experience no cambia: es por relevancia, no por fecha, y está documentado en `src/data/experience.ts`.
+- **El stack con evidencia cierra la página, no la abre.** Los catorce enlaces vivían en el hero y empujaban los CTA casi dos pantallas hacia abajo en móvil. La regla de evidencia no cambió; cambió su posición. En el hero quedan cuatro tecnologías, derivadas del mismo archivo con la marca `core` para que ninguna pueda aparecer arriba sin su prueba.
+- **`Steam_recommendations-` y `PicaTeclas` se quedan fuera.** Son dos recomendadores de curso que conectan temáticamente con SKI, y entrarían como sexto y séptimo proyecto. La regla de profundidad sobre cantidad —tres a cinco, `instrucciones.md` §5— dice que diluyen. Efecto colateral asumido: **Go no aparece en ninguna parte del sitio** pese a existir código en ese lenguaje.
 - **Contacto no tiene página propia**: es sección del home más enlace en el footer.
-- **No hay sección de Skills**: el stack del hero cumple esa función con evidencia enlazada, que es mejor que una grilla de logos.
+- **No hay sección de Skills**: la sección Stack con evidencia cumple esa función, y una lista donde cada ítem enlaza a su prueba es mejor que una grilla de logos o una barra de porcentaje.
 - **Space Drunks** se atribuye a Camote Studio; en itch está bajo la cuenta `Unlucky-Alpaca`.
 - **"LinkedIn Certifications" se queda en el CV.** Se señaló dos veces como línea que no nombra ninguna certificación concreta, y la decisión fue mantenerla: funciona como enlace a la lista completa, junto a los tres certificados con nombre. No volver a quitarla.
 - **Power BI se queda como está.** Aparece en el stack del hero (`stack.ts`) y en el de Cirion (`experience.ts`), pero no en el CV, cuya descripción de Cirion menciona Matplotlib y Seaborn. La discrepancia es conocida y se decidió no tocarla. No reabrir sin motivo nuevo.
@@ -133,6 +137,16 @@ Pendiente: **activar 2FA en GitHub y Vercel**, requisito del brief original.
 ## 7. Registro de lo resuelto
 
 Por orden de cierre, para no volver a abrirlo sin motivo:
+
+- **Contrato al día** — `instrucciones.md` decía que el contenido del sitio va en español y enumeraba `/proyectos`, `/blog` y `/contacto`, rutas eliminadas hace commits. Reescrito: secciones 1-14 conservan su numeración (HANDOFF las cita), §15 recoge los criterios del informe 2026 con lo adoptado y lo rechazado, §16 es el checklist de lanzamiento. Existía además una copia idéntica del archivo fuera del repositorio, en `Portafolio/`; se eliminó antes de que derivara como derivó el CV en Overleaf.
+- **Home reordenado** — hero comprimido con las cuatro tecnologías núcleo y los CTA en una pantalla, índice de secciones navegable, proyectos antes que experiencia y el stack como cierre. `hero.tsx` adelgazado, `stack-section.tsx` nuevo, `page.tsx` reordenado con anclas.
+- **Tarjeta de proyecto en móvil** — las métricas ya no aparecen encima del título. Utilidades `order` en `project-card.tsx`: título primero en una columna, columna izquierda restaurada en `md`.
+- **CV en el header** — enlace persistente en todas las páginas, no solo en el hero. La lista de navegación pasa a `flex-wrap` para no desbordar a 375px.
+- **CI en GitHub Actions** — `.github/workflows/ci.yml` corre `lint`, `type-check` y `build` en cada push y PR, con badge en el README. El badge va al repositorio, no al sitio.
+- **Origen de los datos, declarado de frente** — campo `dataOrigin` en `Project` y sección «Where the data comes from» en la ficha, entre Contexto y Decisiones. Los cinco proyectos lo tienen, incluido Career Assessment, que no usa datos y lo dice. Las tres líneas que ya decían lo mismo desde «decisiones» se eliminaron: ALDIMI sintético, la validación de Smart Kitchen contra el UNEP y los nombres de carpeta corruptos de FruitGuard. Se dice una vez y en el sitio donde se busca.
+- **Columna de margen en la ficha de proyecto** — el meta dejó de ser una banda horizontal bajo el título y pasó a la derecha, como las anotaciones al costado de un cuaderno: código, año, rol, stack y categorías. Los enlaces al repositorio subieron con él: estaban al final de tres pantallas de prosa, que es donde nadie busca lo que más quiere ver. El aside va después del resumen en el DOM, así que el orden de lectura no depende del CSS.
+- **Diagramas de arquitectura** — dos, en `src/components/project/architecture/`. Career Assessment: SPA en Angular con interceptor que adjunta el JWT, API Spring Boot en 8080 con `JwtAuthenticationFilter`, PostgreSQL 16; el `docker-compose.yml` levanta solo la base, no la API, y eso se dice. ALDIMI: la separación entre entrenamiento y servicio, que es lo que la prosa no muestra —los notebooks ajustan y serializan cuatro estimadores, el dashboard solo los carga, SQLite detrás—. Ambos leídos de los repositorios con `WebFetch`, no de memoria: los ficheros, los puertos y las versiones se verificaron antes de dibujarlos. SVG a mano, hairlines, `currentColor` para que sirvan en los dos temas.
+- **`stack` de Career Assessment corregido** — decía `SQL` y el repositorio dice `org.postgresql.Driver` y `postgres:16`. Ahora dice PostgreSQL.
 
 - **Build verificado** — `npm run build` corre completo en local y en Vercel; las tres fuentes descargan.
 - **Repositorio creado** — importado a `github.com/ZtanQ/Portfolio`. Había un `.git` accidental y vacío dentro de `src/app/` que habría convertido esa carpeta en un submódulo vacío; se eliminó antes del primer commit.

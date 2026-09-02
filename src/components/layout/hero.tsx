@@ -1,12 +1,22 @@
 import Link from "next/link";
 import { site } from "@/data/site";
-import { stack } from "@/data/stack";
+import { coreStack } from "@/data/stack";
 
+/**
+ * Everything a reader needs in the first ten seconds, and nothing else:
+ * who I am, what I do, four technologies, and the two things they might
+ * want to click. It has to fit one screen at 375px.
+ *
+ * The full stack used to live here — fourteen links between the tagline and
+ * the CTAs, which pushed both actions off the screen on a phone. It moved to
+ * its own section further down, where it does its real job: verifying a claim
+ * the reader has already been given a reason to check. See instrucciones.md §5.
+ */
 export function Hero() {
   return (
-    <section className="pt-16 pb-24 md:pt-24 md:pb-32">
+    <section className="pt-16 pb-14 md:pt-24 md:pb-20">
       <p className="font-mono text-meta text-ink-muted">
-        {site.location} · Computer Science student
+        Computer Science student in {site.location}
       </p>
 
       <h1 className="mt-6 font-display text-[2.125rem] md:text-display tracking-tight max-w-[22ch]">
@@ -17,43 +27,28 @@ export function Hero() {
         {site.tagline}
       </p>
 
-      {/* Stack. Every item links to the thing that proves it. */}
-      <div className="mt-12 border-t border-rule">
-        <h2 className="sr-only">Technologies, and where I used them</h2>
-        <dl>
-          {stack.map((group) => (
-            <div
-              key={group.label}
-              className="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-2 py-4 border-b border-rule [&>*]:min-w-0"
-            >
-              <dt className="font-mono text-meta text-ink-muted pt-[3px]">
-                {group.label}
-              </dt>
-              <dd>
-                <ul className="flex flex-wrap gap-x-5 gap-y-2">
-                  {group.items.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        title={item.evidence}
-                        className="font-mono text-small text-ink hover:text-signal border-b border-transparent hover:border-signal pb-[2px] transition-colors duration-150"
-                      >
-                        {item.name}
-                        <span className="sr-only">
-                          {" — "}
-                          {item.evidence}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
+      <div className="mt-8">
+        <h2 className="sr-only">Core technologies</h2>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          {coreStack.map((item) => (
+            <li key={item.name}>
+              <Link
+                href={item.href}
+                title={item.evidence}
+                className="font-mono text-small text-ink hover:text-signal border-b border-rule hover:border-signal pb-[2px] transition-colors duration-150"
+              >
+                {item.name}
+                <span className="sr-only">
+                  {" — "}
+                  {item.evidence}
+                </span>
+              </Link>
+            </li>
           ))}
-        </dl>
+        </ul>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+      <div className="mt-9 flex flex-wrap items-baseline gap-x-8 gap-y-3">
         <Link
           href="/projects"
           className="text-accent border-b border-accent pb-[2px] hover:opacity-75 transition-opacity duration-150"
