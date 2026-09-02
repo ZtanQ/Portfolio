@@ -1,0 +1,397 @@
+
+%==============================================================================
+% CV Gabriel Reyna Alvarado
+% ATS-friendly | Data Analyst / Machine Learning
+% Compile with: pdflatex
+%==============================================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+%------------------------------------------------------------------------------
+% PACKAGES
+%------------------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{charter}
+\usepackage[
+    top=0.55in,
+    bottom=0.55in,
+    left=0.68in,
+    right=0.68in
+]{geometry}
+
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+%------------------------------------------------------------------------------
+% COLOURS
+%------------------------------------------------------------------------------
+\definecolor{ink}{HTML}{1A1A1A}
+\definecolor{accent}{HTML}{14304A}
+\definecolor{hairline}{HTML}{C8C3B8}
+\definecolor{muted}{HTML}{555555}
+
+%------------------------------------------------------------------------------
+% PDF METADATA
+%------------------------------------------------------------------------------
+\hypersetup{
+    colorlinks=true,
+    urlcolor=accent,
+    linkcolor=accent,
+    pdftitle={Gabriel Reyna Alvarado - Curriculum Vitae},
+    pdfauthor={Gabriel Reyna Alvarado},
+    pdfsubject={Data Analyst / Machine Learning}
+}
+
+%------------------------------------------------------------------------------
+% GLOBAL SETTINGS
+%------------------------------------------------------------------------------
+\AtBeginDocument{\color{ink}}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+%------------------------------------------------------------------------------
+% SECTION HEADINGS
+%------------------------------------------------------------------------------
+\titleformat{\section}
+    {\normalfont\normalsize\bfseries\scshape}
+    {}{0pt}{}
+    [\vspace{-0.65ex}{\color{hairline}\titlerule[0.45pt]}]
+
+\titlespacing*{\section}
+    {0pt}{1.65ex plus .2ex}{0.8ex}
+
+%------------------------------------------------------------------------------
+% ENTRY
+%------------------------------------------------------------------------------
+\newcommand{\entry}[2]{%
+    \vspace{0.55ex}
+    \textbf{#1}\par
+    {\small\itshape\color{muted}#2}\par
+    \vspace{0.15ex}
+}
+
+%------------------------------------------------------------------------------
+% BULLETS
+%------------------------------------------------------------------------------
+\newenvironment{points}
+{
+    \begin{itemize}[
+        leftmargin=1.25em,
+        itemsep=0.18ex,
+        parsep=0pt,
+        topsep=0.25ex,
+        label=\textbullet
+    ]
+}
+{
+    \end{itemize}
+}
+
+%------------------------------------------------------------------------------
+% SKILL ROW
+%------------------------------------------------------------------------------
+\newcommand{\skillrow}[2]{%
+    \textbf{#1:} #2\par
+    \vspace{0.25ex}
+}
+
+%------------------------------------------------------------------------------
+% C++
+%------------------------------------------------------------------------------
+% Charter deja un hueco visible entre los dos signos y sale como "C+ +".
+% Kerning manual, sin paquetes extra. Si al compilar queda apretado o todavia
+% suelto, ajustar estos dos valores.
+\newcommand{\cpp}{C\kern-0.06em{+}\kern-0.10em{+}}
+
+%------------------------------------------------------------------------------
+% ENLACE CON DOMINIO VISIBLE
+%------------------------------------------------------------------------------
+% Un CV se imprime. Si la cabecera dice solo "Portfolio", en papel no lleva a
+% ninguna parte. Esto mantiene el dominio a la vista y clicable a la vez.
+% \urlref{https://ejemplo.com}{ejemplo.com}
+\newcommand{\urlref}[2]{\href{#1}{#2}}
+
+%==============================================================================
+% DOCUMENT
+%==============================================================================
+
+\begin{document}
+
+%------------------------------------------------------------------------------
+% HEADER
+%------------------------------------------------------------------------------
+
+\begin{center}
+
+    {\fontsize{20}{22}\selectfont\bfseries GABRIEL REYNA ALVARADO}
+
+    \vspace{0.35ex}
+
+    {\large\color{accent}
+    Data Analyst \textbar{} Machine Learning
+    }
+
+    \vspace{0.65ex}
+
+    {\small
+    Lima, Peru
+    \textbar{}
+    +51 997 881 012
+    \textbar{}
+    \href{mailto:g.alonsoreyna@gmail.com}{g.alonsoreyna@gmail.com}
+    }
+
+    \vspace{0.3ex}
+
+    {\small
+    \urlref{https://portfolio-ztanq.vercel.app}{portfolio-ztanq.vercel.app}
+    \textbar{}
+    \urlref{https://linkedin.com/in/gabriel-reyna-alvarado}{linkedin.com/in/gabriel-reyna-alvarado}
+    \textbar{}
+    \urlref{https://github.com/ZtanQ}{github.com/ZtanQ}
+    }
+
+\end{center}
+
+\vspace{0.35ex}
+
+%------------------------------------------------------------------------------
+% PROFILE
+%------------------------------------------------------------------------------
+
+\section{Profile}
+
+Computer Science student with hands-on experience across the full data project
+lifecycle: dataset preparation and cleaning, training and evaluation of
+classification models, and deployment of results in dashboards for
+non-technical users (Tableau and Streamlit). I work with explicit
+methodological rigour --- data leakage detection, metric selection driven by
+the cost of each error type, and documented limitations --- on a Python,
+SQL and scikit-learn/XGBoost stack. Every project below links to its code and
+to a write-up of the decisions behind it.
+
+%------------------------------------------------------------------------------
+% PROJECTS
+%------------------------------------------------------------------------------
+
+\section{Data and Machine Learning Projects}
+
+\entry
+{\href{https://portfolio-ztanq.vercel.app/projects/aldimi-predict}
+{ALDIMI Predict --- Predictive System for a Paediatric Oncology Shelter}}
+{Python, XGBoost, Scikit-learn, SHAP, SQLite, Streamlit
+\textbar{} UPC, 2026
+\textbar{} Team of four: modelling and deployment}
+
+\begin{points}
+    \item Trained and evaluated classification models (XGBoost, Random Forest)
+    to anticipate 7- and 14-day stockouts in the inventory of a shelter for
+    paediatric oncology patients, tuning hyperparameters with RandomizedSearchCV
+    over 5-fold StratifiedKFold.
+
+    \item Built a multiclass clinical risk classifier over 34 nutritional,
+    socioeconomic and treatment-adherence variables, reaching a macro F1 of
+    0.75 and AUC of 0.87 on a synthetic dataset generated to protect the
+    confidentiality of real patients.
+
+    \item Chose macro F1 over accuracy because the risk classes are imbalanced
+    and a missed high-risk case costs far more than a false positive.
+
+    \item Interpreted predictions with SHAP values to surface the dominant risk
+    factors, enabling shelter staff to audit a model that informs care decisions.
+
+    \item Deployed the system as a Streamlit dashboard over a unified SQLite
+    database, delivered with a user manual and a data dictionary.
+\end{points}
+
+
+\entry
+{\href{https://portfolio-ztanq.vercel.app/projects/smart-kitchen-intelligence}
+{Smart Kitchen Intelligence --- Food Waste Analytics}}
+{Python, Polars, Pandas, Scikit-learn, Tableau
+\textbar{} UPC, 2026
+\textbar{} Team of three: data preparation, modelling and visualisation}
+
+\begin{points}
+    \item Implemented the cleaning pipeline over 25,819 inventory movements,
+    applying 6 verifiable quality rules (outliers, category harmonisation,
+    referential integrity, structural nulls, deduplication), with
+    cross-implementation in Polars and Pandas for independent validation.
+
+    \item Trained waste classification models (Random Forest against Logistic
+    Regression), detecting and removing a data leak that inflated metrics to
+    F1 = 1.0, and selected the final model on F1 and cross-validation stability
+    rather than accuracy, since a trivial classifier already reached 64.5\%.
+
+    \item Designed a 10-sheet Tableau dashboard with 4 KPIs, a global household
+    filter and a prescriptive panel, which identified that 97\% of the
+    economic loss concentrated in a single storage location, with a waste rate
+    9.1 times higher than the most efficient one.
+
+    \item Validated the representativeness of the simulated dataset against
+    the UNEP Food Waste Index Report 2024 benchmark, and documented the
+    structural redundancy between location and product category as a
+    methodological limitation.
+\end{points}
+
+
+\entry
+{\href{https://portfolio-ztanq.vercel.app/projects/ski-recommender}
+{Anti-Waste Recommendation Engine --- Hybrid Recommender}}
+{Python, Scikit-learn, ALS, NetworkX, Streamlit
+\textbar{} UPC, 2026
+\textbar{} Team of three: modelling and deployment}
+
+\begin{points}
+    \item Trained a three-signal hybrid recommender combining TF-IDF content
+    similarity, implicit ALS collaborative filtering, and expiry-proximity
+    urgency, evaluated under a blind masked-basket completion protocol and
+    achieving 100\% catalogue coverage against the popularity baseline.
+
+    \item Segmented consumption patterns with DBSCAN after benchmarking against
+    K-Means and GMM on the PCA-reduced space, reaching a Silhouette Score of
+    0.65 with under 0.3\% noise.
+
+    \item Empirically ruled out adding PageRank centrality to the ensemble
+    through an ablation over the weight grid (optimal weight of zero),
+    documented the negative result in the technical report, and deployed the
+    system as a Streamlit application.
+\end{points}
+
+
+\entry
+{\href{https://portfolio-ztanq.vercel.app/projects/fruitguard}
+{FruitGuard --- Produce Freshness Classification with Computer Vision}}
+{Python, OpenCV, Scikit-learn, Scikit-image, Gradio
+\textbar{} University of Pittsburgh, 2025
+\textbar{} Team of three: modelling and evaluation}
+
+\begin{points}
+    \item Built a freshness classifier for nine produce types over 30,357
+    images, combining HOG, GLCM and colour features with an OpenCV preprocessing
+    pipeline (normalisation and noise reduction), reaching 97.4\% test accuracy
+    across 14 evaluated classes.
+\end{points}
+
+%------------------------------------------------------------------------------
+% EXPERIENCE
+%------------------------------------------------------------------------------
+
+\section{Professional Experience}
+
+\entry
+{Data Analyst Intern --- Cirion Next Generation}
+{Lima, Peru \textbar{} January 2024 -- March 2024}
+
+\begin{points}
+    \item Processed and cleaned datasets of over 10,000 records using SQL and
+    Python (Pandas), implementing consistency checks that eliminated manual
+    rework in engineering reports.
+
+    \item Automated the generation of recurring visualisations with Matplotlib
+    and Seaborn, freeing roughly 20 hours of manual work per month for the team.
+
+    \item Refactored SQL queries alongside the data engineering team, reducing
+    execution times for business-critical reports.
+\end{points}
+
+
+\entry
+{Founder --- \href{https://www.camotestudio.com/}{Camote Studio}}
+{Lima, Peru \textbar{} 2025 -- Present}
+
+\begin{points}
+    \item Co-founded an independent game studio and shipped \emph{Space Drunks},
+    a cartoon-styled beat 'em up, working across development, production and
+    team coordination rather than a single fixed role.
+
+    \item Established the Git version control workflow for a repository of over
+    500 binary assets, eliminating integration conflicts during team work.
+\end{points}
+
+%------------------------------------------------------------------------------
+% TECHNICAL SKILLS
+%------------------------------------------------------------------------------
+
+\section{Technical Skills}
+
+\skillrow{Languages}
+{Python, SQL, Java, \cpp, R, JavaScript}
+
+\skillrow{Data and Machine Learning}
+{Pandas, Polars, NumPy, Scikit-learn, XGBoost, SHAP, OpenCV}
+
+\skillrow{Techniques}
+{Supervised classification, clustering (DBSCAN, K-Means, GMM), PCA, t-SNE,
+collaborative filtering (ALS), TF-IDF, cross-validation}
+
+\skillrow{Visualisation}
+{Tableau, Streamlit, Matplotlib, Seaborn, Plotly}
+
+\skillrow{Databases}
+{SQL Server, MySQL, SQLite, MongoDB, relational modelling}
+
+\skillrow{Tools}
+{Git, GitHub, Docker, pytest, Excel}
+
+\skillrow{Methodologies}
+{CRISP-DM, Scrum}
+
+%------------------------------------------------------------------------------
+% EDUCATION
+%------------------------------------------------------------------------------
+
+\section{Education}
+
+\entry
+{BSc in Computer Science --- Universidad Peruana de Ciencias Aplicadas (UPC)}
+{Lima, Peru \textbar{} Expected graduation: 2026}
+
+Relevant coursework: Machine Learning, Data Visualisation, Database Management,
+Statistical Analysis.
+
+
+\entry
+{Computer Vision \& AI Programme --- University of Pittsburgh}
+{Remote \textbar{} 2022 -- 2025}
+
+International collaboration programme. Where the FruitGuard classifier was built.
+
+
+\entry
+{Game Development Workshop --- UPC GameLab}
+{Lima, Peru \textbar{} 2024 -- 2025}
+
+Term-long workshop where teams form and ship a game; the team behind Camote
+Studio came out of it. Modelled real-time simulation systems with
+object-oriented programming and optimised data structures, reducing processing
+overhead by 15\% against the baseline implementation.
+
+%------------------------------------------------------------------------------
+% LANGUAGES, CERTIFICATIONS AND ACTIVITIES
+%------------------------------------------------------------------------------
+
+\section{Languages, Certifications and Activities}
+
+\skillrow{Languages}
+{Spanish (native), English (B2 --- Cambridge First, 2025), French (intermediate)}
+
+\skillrow{Certifications}
+{Scrum Fundamentals Certified (SFC)
+\textbar{}
+\href{https://www.linkedin.com/in/gabriel-reyna-alvarado/details/certifications/}
+{LinkedIn Certifications}}
+
+\skillrow{Activities}
+{PMI Lima Peru Chapter; PMI LATAM Conference 2026.
+Inter-university innovation competition on SDG 11 (Sustainable Cities and
+Communities): member of a team of 6 that developed and defended a proposal
+before an industry jury.}
+
+\end{document}
+```
