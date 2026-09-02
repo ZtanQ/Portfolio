@@ -20,6 +20,6 @@ export const site = {
    * Flip to true once the PDF is actually in public/cv/. While false, the
    * download links don't render at all — better than a 404 on the main CTA.
    */
-  cvAvailable: false,
+  cvAvailable: true,
   cvPath: "/cv/gabriel-reyna-cv.pdf",
 } as const;
