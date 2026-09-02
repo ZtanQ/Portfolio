@@ -4,20 +4,11 @@ Documento de traspaso. Léelo junto con `instrucciones.md`, que contiene el sist
 
 ---
 
-## 0. Lo primero: verificar que compila
+## 0. Estado de verificación
 
-El proyecto nunca se ha construido en un entorno con acceso a internet. Todo el desarrollo se hizo en un sandbox sin acceso a `fonts.googleapis.com`, así que `next/font` nunca pudo descargar Fraunces, Newsreader ni JetBrains Mono.
+**Resuelto.** `npm run build` ya corre de principio a fin, en local y en Vercel. `next/font` descarga Fraunces, Newsreader y JetBrains Mono sin problema; la duda que había sobre el sandbox sin internet quedó descartada. `tsc --noEmit` y `eslint` pasan limpios y `npm audit` reporta 0 vulnerabilidades.
 
-`tsc --noEmit` y `eslint` pasan limpios, pero **`npm run build` no se ha ejecutado nunca de principio a fin**.
-
-Antes de tocar nada:
-
-```bash
-npm install
-npm run build
-```
-
-Si falla, arregla eso antes que cualquier otra cosa de la lista. No es un fallo esperado, pero es lo único sin verificar.
+Una trampa conocida: si borras rutas y el build falla con `TS2307` sobre módulos que ya no existen, es caché viejo de `next dev` en `.next/dev/types/`. Borra `.next` y reconstruye.
 
 ---
 
@@ -43,23 +34,18 @@ Completo y funcionando:
 
 Cinco proyectos: ALDIMI Predict, Smart Kitchen Intelligence, el recomendador SKI, FruitGuard y Career Assessment Platform.
 
+En línea:
+
+- Repositorio: `github.com/ZtanQ/Portfolio`, rama `main`
+- Desplegado en `https://portfolio-ztanq.vercel.app`, automático desde `main`
+
+Las rutas en español que quedaron de la migración (`/proyectos`, `/blog`, `/contacto`) y el post duplicado en español fueron eliminadas. El sitio sirve solo la versión en inglés.
+
 ---
 
 ## 3. Cola de trabajo, en orden
 
-### Bloqueante 1 — Dominio
-
-`src/data/site.ts` tiene `url: "https://gabrielreyna.dev"` como valor provisional. De ahí dependen el sitemap, robots, las URLs canónicas y la ruta absoluta de la imagen OG.
-
-Hay que reemplazarlo por el dominio real antes del primer deploy.
-
-### Bloqueante 2 — CV
-
-El PDF no existe. En `src/data/site.ts` hay una bandera `cvAvailable: false` que oculta los dos enlaces de descarga (hero y Contact) para no dejar un 404 en el CTA principal.
-
-1. Colocar el PDF en `public/cv/gabriel-reyna-cv.pdf`
-2. Cambiar `cvAvailable` a `true`
-3. Verificar que aparezcan los dos enlaces
+**Los dos bloqueantes de deploy están resueltos.** El dominio está configurado y el CV está en su sitio; lo que sigue son mejoras de contenido, no obstáculos.
 
 ### Alta prioridad — Repos faltantes
 
@@ -145,4 +131,25 @@ Vienen de `instrucciones.md` y aplican a cualquier cambio:
 
 ## 6. Deploy
 
-GitHub → Vercel, deploy automático desde `main`. Activar 2FA en ambas plataformas antes de conectar; era requisito del brief original.
+GitHub → Vercel, deploy automático desde `main`. Ya está conectado y desplegando.
+
+- Repositorio: `github.com/ZtanQ/Portfolio`
+- Producción: `https://portfolio-ztanq.vercel.app`
+- `site.url` en `src/data/site.ts` es la única fuente del dominio: de ahí salen `metadataBase`, `openGraph.url`, el sitemap, robots y el JSON-LD de Person
+
+Si más adelante se conecta un dominio propio: cambiar esa línea, marcar el nuevo como *Primary* en Vercel y dejar el `.vercel.app` redirigiendo. Vercel responde en ambos, y las canónicas deben apuntar a uno solo.
+
+Pendiente: **activar 2FA en GitHub y Vercel**, requisito del brief original.
+
+---
+
+## 7. Registro de lo resuelto
+
+Por orden de cierre, para no volver a abrirlo sin motivo:
+
+- **Build verificado** — `npm run build` corre completo en local y en Vercel; las tres fuentes descargan.
+- **Repositorio creado** — importado a `github.com/ZtanQ/Portfolio`. Había un `.git` accidental y vacío dentro de `src/app/` que habría convertido esa carpeta en un submódulo vacío; se eliminó antes del primer commit.
+- **Rutas en español eliminadas** — `/proyectos`, `/blog`, `/contacto` y `content/blog/metrica-perfecta-mala-noticia.mdx`. Nada las enlazaba. Se conservan `src/lib/blog.ts` y `src/components/blog/`, que pese al nombre son los módulos que usa `/writing`.
+- **`next-mdx-remote` 5.0.0 → 6.0.0** — cierra GHSA-g4xw-jxrg-5f6m (alta). La exposición real era nula porque el MDX sale del propio repo, pero Vercel lo marcaba en cada deploy. La v6 conserva el export `/rsc` y la firma de `MDXRemote`; no hubo cambios de código.
+- **Bloqueante 1, dominio** — `site.url` apunta a `https://portfolio-ztanq.vercel.app`, sin barra final. Verificado en el build: sitemap, robots, `og:image` y JSON-LD salen con el host correcto.
+- **Bloqueante 2, CV** — `public/cv/gabriel-reyna-cv.pdf` colocado y `cvAvailable` en `true`. Verificado que renderizan los dos enlaces: "Download CV" en el hero y "Download CV (PDF)" en Contact.
