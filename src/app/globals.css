@@ -50,6 +50,12 @@
   --radius-md: 3px;
   --radius-lg: 4px;
 
+  /* Photographs and screenshots, and only those. The 2-4px ceiling above is
+   * there to stop panels and cards from reading as SaaS chrome; an image is
+   * already a soft shape, and at these sizes a hairline square frame reads as
+   * a clipping, not as a frame. One token so the value stays in one place. */
+  --radius-image: 12px;
+
   /* Measure for prose. ~68 characters at 18px Newsreader. */
   --measure: 40rem;
 }

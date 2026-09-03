@@ -174,7 +174,8 @@ Layout:
 - Alineación izquierda. Sin centrar párrafos
 - **Alternancia de densidad**: no todas las secciones con la misma textura. Números y gráficos solo en el hero y en las páginas de proyecto; About, educación, experiencia y writing se quedan en registro editorial
 - Espaciado generoso — el aire es parte del mensaje
-- **Sin** border-radius grandes. Radios de 2-4px máximo
+- **Sin** border-radius grandes en paneles, tarjetas y bloques: radios de 2-4px máximo. Es lo que evita que el sitio se lea como chrome de SaaS
+- **Las imágenes son la excepción, y solo ellas**: fotografías, capturas y portadas usan `--radius-image`, hoy 12px, vía la utilidad `rounded-image`. Una imagen ya es una forma blanda, y a estos tamaños un marco de esquina viva se lee como recorte y no como marco. El valor vive en un solo token de `globals.css`: si cambia, cambia en un sitio y en todas las imágenes a la vez. No aplicarlo a nada que no sea una imagen
 - **Sin** sombras difusas. Hairlines de 1px como estructura
 - Figuras tabulares (`font-variant-numeric: tabular-nums`) en toda métrica
 

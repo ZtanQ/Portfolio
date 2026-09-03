@@ -4,6 +4,11 @@ export type ProjectTag =
   | "Computer Vision"
   | "Backend";
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+};
+
 export type ProjectMetric = {
   label: string;
   value: string;
@@ -20,13 +25,12 @@ export type Project = {
   metrics?: readonly ProjectMetric[];
   featured: boolean;
   /**
-   * Visual evidence. When absent, the card renders in typographic mode:
-   * metrics set large in mono instead of an image.
+   * Visual evidence, in reading order. The card shows the first one; the
+   * project page shows all of them behind arrows when there is more than one.
+   * When absent, the card renders in typographic mode: metrics set large in
+   * mono instead of an image.
    */
-  image?: {
-    src: string;
-    alt: string;
-  };
+  images?: readonly ProjectImage[];
   links?: {
     /**
      * One entry per repository. Some projects live in more than one: a team
@@ -67,6 +71,16 @@ export const projects: readonly Project[] = [
       { label: "Forecast window", value: "7 and 14 days" },
     ],
     featured: true,
+    images: [
+      {
+        src: "/projects/aldimi-dashboard.png",
+        alt: "The shelter's operations panel: products out of stock, products at risk, next week's budget and patients flagged high priority, above the restocking and patient-priority lists.",
+      },
+      {
+        src: "/projects/aldimi-risk.png",
+        alt: "The intake form for a new patient — age, diagnosis, cancer stage, distance from Lima, nutrition and family support — returning a verdict of no urgency, with a note that the clinical team confirms every case.",
+      },
+    ],
     links: {
       repos: [
         { label: "Source on GitHub", url: "https://github.com/itosh10110/ALDIMI" },
@@ -105,6 +119,12 @@ export const projects: readonly Project[] = [
       { label: "Waste ratio", value: "9.1× the most efficient" },
     ],
     featured: true,
+    images: [
+      {
+        src: "/projects/smart-kitchen-tableau.png",
+        alt: "The Tableau dashboard: cost of waste over the weeks, with one sharp peak, and stacked bars by storage location where the refrigerator column dwarfs every other.",
+      },
+    ],
     links: {
       repos: [
         { label: "Source on GitHub", url: "https://github.com/ZtanQ/Smart_Kitchen" },
@@ -144,6 +164,20 @@ export const projects: readonly Project[] = [
       { label: "DBSCAN noise", value: "< 0.3%" },
     ],
     featured: true,
+    images: [
+      {
+        src: "/projects/ski-treemap.png",
+        alt: "Treemap of one household's pantry: each item is a rectangle sized by quantity and colored by days to expiry, so everything about to spoil reads as a block of red.",
+      },
+      {
+        src: "/projects/ski-suggestions.png",
+        alt: "The day's suggested items for one household, three of them flagged urgent and the rest as suggestions, each carrying its Nutriscore grade.",
+      },
+      {
+        src: "/projects/ski-habits.png",
+        alt: "A heatmap of restocking activity by weekday and hour, with the brightest cells clustered around midday and early evening.",
+      },
+    ],
     links: {
       repos: [
         {
@@ -187,6 +221,16 @@ export const projects: readonly Project[] = [
       { label: "Classes evaluated", value: "14" },
     ],
     featured: false,
+    images: [
+      {
+        src: "/projects/fruitguard-gradio.png",
+        alt: "The Gradio interface returning a verdict for a photograph of an apple: produce type detected, and state classified as fresh.",
+      },
+      {
+        src: "/projects/fruitguard-rotten.png",
+        alt: "The same interface on a wrinkled, sunken apple, returning the opposite verdict: rotten.",
+      },
+    ],
     links: {
       repos: [
         { label: "Source on GitHub", url: "https://github.com/Dreelliot/FruitGuard" },

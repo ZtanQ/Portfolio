@@ -41,3 +41,6 @@ next-env.d.ts
 
 # certificados personales: material de consulta, no se publica
 /certificados
+
+# fuentes de las capturas y fotos personales: material de trabajo, no se publica
+/imgs

@@ -25,7 +25,8 @@ import type { Project } from "@/data/projects";
  * selectable.
  */
 export function ProjectCard({ project }: { project: Project }) {
-  const hasImage = Boolean(project.image);
+  const cover = project.images?.[0];
+  const hasImage = Boolean(cover);
   const metrics = project.metrics ?? [];
 
   return (
@@ -72,10 +73,10 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {hasImage ? (
-        <div className="md:order-1 relative aspect-[4/3] overflow-hidden rounded-md border border-rule bg-rule/20">
+        <div className="md:order-1 relative aspect-[4/3] overflow-hidden rounded-image border border-rule bg-rule/20">
           <Image
-            src={project.image!.src}
-            alt={project.image!.alt}
+            src={cover!.src}
+            alt={cover!.alt}
             fill
             sizes="(min-width: 768px) 16rem, 100vw"
             className="object-cover"

@@ -25,7 +25,7 @@ export default function AboutPage() {
           width={468}
           height={540}
           sizes="(min-width: 768px) 16rem, 60vw"
-          className="w-40 md:w-full rounded-md border border-rule"
+          className="w-40 md:w-full rounded-image border border-rule"
           priority
         />
 
@@ -116,16 +116,31 @@ export default function AboutPage() {
             itch.io profile
           </a>
         </div>
+        {/* Cover art leads here. It's the only section where the picture is
+            the work rather than a description of it. Native size is the
+            itch.io 630×500, so the frame keeps that ratio and never crops. */}
         <ul className="border-t border-rule">
           {games.map((game) => (
             <li
               key={game.title}
-              className="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-6 gap-y-1 py-4 border-b border-rule"
+              className="grid grid-cols-[5.5rem_1fr] sm:grid-cols-[9rem_1fr] gap-x-5 sm:gap-x-6 gap-y-1 py-5 border-b border-rule"
             >
-              <span className="font-mono text-meta text-ink-muted sm:pt-[5px]">
-                {game.genre ?? "—"}
-              </span>
-              <span>
+              {game.image ? (
+                <div className="relative aspect-[63/50] overflow-hidden rounded-image border border-rule bg-rule/20">
+                  <Image
+                    src={game.image.src}
+                    alt={game.image.alt}
+                    fill
+                    sizes="(min-width: 640px) 9rem, 5.5rem"
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <span className="font-mono text-meta text-ink-muted pt-[5px]">
+                  {game.genre ?? "—"}
+                </span>
+              )}
+              <div>
                 <a
                   href={game.href}
                   target="_blank"
@@ -140,11 +155,16 @@ export default function AboutPage() {
                   </span>
                 )}
                 {game.blurb && (
-                  <span className="block mt-1 text-small text-ink-muted max-w-[var(--measure)]">
+                  <p className="mt-1 text-small text-ink-muted max-w-[var(--measure)]">
                     {game.blurb}
-                  </span>
+                  </p>
                 )}
-              </span>
+                {game.image && game.genre && (
+                  <p className="mt-2 font-mono text-meta text-ink-muted">
+                    {game.genre}
+                  </p>
+                )}
+              </div>
             </li>
           ))}
         </ul>

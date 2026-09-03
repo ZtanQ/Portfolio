@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects, getProject } from "@/data/projects";
 import { architectureDiagrams } from "@/components/project/architecture";
+import { ProjectGallery } from "@/components/project/project-gallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -43,6 +44,7 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound();
 
   const metrics = project.metrics ?? [];
+  const images = project.images ?? [];
   const links = project.links ?? {};
   const repos = links.repos ?? [];
   const hasLinks = Boolean(repos.length || links.demo || links.report);
@@ -72,17 +74,23 @@ export default async function ProjectPage({ params }: Props) {
         {project.summary}
       </p>
 
-      {project.image && (
-        <div className="mt-10 relative aspect-[4/3] max-w-[var(--measure)] overflow-hidden rounded-md border border-rule bg-rule/20">
-          <Image
-            src={project.image.src}
-            alt={project.image.alt}
-            fill
-            sizes="(min-width: 768px) 40rem, 100vw"
-            className="object-cover"
-            priority
-          />
+      {images.length > 1 ? (
+        <div className="mt-10">
+          <ProjectGallery images={images} />
         </div>
+      ) : (
+        images.length === 1 && (
+          <div className="mt-10 relative aspect-[4/3] max-w-[var(--measure)] overflow-hidden rounded-image border border-rule bg-rule/20">
+            <Image
+              src={images[0].src}
+              alt={images[0].alt}
+              fill
+              sizes="(min-width: 768px) 40rem, 100vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )
       )}
 
       <div className="mt-12 grid grid-cols-1 lg:grid-cols-[minmax(0,var(--measure))_1fr] gap-x-12 gap-y-12 [&>*]:min-w-0">

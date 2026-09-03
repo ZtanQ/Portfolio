@@ -10,7 +10,7 @@
 export const about = {
   photo: {
     src: "/img/gabriel-reyna.jpg",
-    alt: "Gabriel Reyna standing outdoors in a white shirt and tie",
+    alt: "Gabriel Reyna facing the camera against a plain wall, in a dark jacket over a white shirt.",
   },
 
   paragraphs: [
